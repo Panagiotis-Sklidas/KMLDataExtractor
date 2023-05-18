@@ -3,7 +3,7 @@ import io
 import csv
 import math
 
-# doc = et.parse("example.kml")  # Change with the filepath to your kml file
+doc = et.parse("example.kml")  # Change with the filepath to your kml file
 
 R = 6371  # Earth radius
 rawdata = []
