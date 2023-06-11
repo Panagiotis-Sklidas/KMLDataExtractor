@@ -1,9 +1,9 @@
-import xml.etree.ElementTree as et
+import defusedxml.ElementTree as et
 import io
 import csv
 import math
 
-doc = et.parse("example.kml")  # Change with the filepath to your kml file
+doc = et.parse("C:\\Users\\Pasklid\\Desktop\\Ομάδα_16_Βύρωνας\Βύρωνας.kml")  # Change with the filepath to your kml file
 
 R = 6371  # Earth radius
 rawdata = []
@@ -30,7 +30,7 @@ def writerawdatacsv():
     try:
         with io.open('rawcoordinates.csv', mode='a', newline='') as csvw:
             write = csv.writer(csvw)
-            write.writerow(['Marker', 'Latitude', 'Longitude', 'Coordinate 3'])
+            write.writerow(['Marker', 'Latitude', 'Longitude', 'Altitude'])
             for entry in rawdata:
                 name = entry['marker']
                 position = entry['coordinates'].split(",")

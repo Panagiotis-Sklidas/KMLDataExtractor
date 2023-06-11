@@ -28,8 +28,11 @@ This project was created during my studies at the University for the course "Opt
 
 <!-- Features -->
 ### Features
- * Exports a csv file named rawcoordinates, which has all placemarkers name and their latitude and longitude coordinates
+ * Exports a csv file named rawcoordinates, which has all placemarkers name and their latitude, longitude and altitude coordinates
  * Exports a csv file named coordinates, which has all placemarkers name, their x, y and z coordinates
+
+ #### Curenntly working on:
+ * Make the script run as a terminal app
 
 <!-- Getting Started -->
 ## Getting Started
@@ -39,6 +42,10 @@ This project was created during my studies at the University for the course "Opt
 
 In order to run the application locally you should have the following installed:
 * Python 3.9.6 (Download [here](https://www.python.org/downloads/release/python-396/))
+* defusedxml module
+```
+pip install defusedxml
+```
 
 <!-- Run Locally-->
 ### Run Locally
@@ -61,4 +68,4 @@ See [LICENSE](https://github.com/Panagiotis-Sklidas/KMLDataExtractor/blob/main/L
 ## Acknowledgements
 SUBJECT AREA: Optimazation Algorithms
 <br>
-KEYWORDS: Python, KML data extractor
+KEYWORDS: Python, KML, Data extraction, Transform coordinates to xyz
