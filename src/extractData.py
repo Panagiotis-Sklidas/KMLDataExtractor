@@ -64,7 +64,7 @@ def writedatacsv(data):
 
 def main():
     parser = argparse.ArgumentParser(description='Convert KML data to CSV.')
-    parser.add_argument('filepath', type=str, help='Path to the KML file')
+    parser.add_argument('-f', '--filepath', type=str, help='Path to the KML file')
 
     args = parser.parse_args()
 
