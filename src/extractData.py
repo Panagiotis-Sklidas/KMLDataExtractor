@@ -1,32 +1,24 @@
+import argparse
 import defusedxml.ElementTree as et
 import io
 import csv
 import math
 
-doc = et.parse("C:\\Users\\Pasklid\\Desktop\\Ομάδα_16_Βύρωνας\Βύρωνας.kml")  # Change with the filepath to your kml file
+def extractdata(doc):
+    rawdata = []
+    nmsp = '{http://www.opengis.net/kml/2.2}'
 
-R = 6371  # Earth radius
-rawdata = []
-data = []
-
-nmsp = '{http://www.opengis.net/kml/2.2}'
-
-# Extracts the data:
-#   a) placemarker name
-#   b) coordinates
-#from the kml file and appends them in rawdata array
-def extractdata():
     for pm in doc.iterfind('.//{0}Placemark'.format(nmsp)):
         marker = pm.find('{0}name'.format(nmsp)).text
 
         for ls in pm.iterfind('.//{0}coordinates'.format(nmsp)):
-            coordinates = ls.text.strip().replace('\n','')
+            coordinates = ls.text.strip().replace('\n', '')
 
             rawdata.append({"marker": marker, "coordinates": coordinates})
 
+    return rawdata
 
-# Writes a csv file named rawcoordinates.csv with the latitude, longitude coordinates
-def writerawdatacsv():
+def writerawdatacsv(rawdata):
     try:
         with io.open('rawcoordinates.csv', mode='a', newline='') as csvw:
             write = csv.writer(csvw)
@@ -34,14 +26,15 @@ def writerawdatacsv():
             for entry in rawdata:
                 name = entry['marker']
                 position = entry['coordinates'].split(",")
-                write.writerow([name,position[0],position[1],position[2]])
+                write.writerow([name, position[0], position[1], position[2]])
         print('Your data csv with latitude, longitude coordinates is ready!')
     except csv.Error as e:
         print(e)
 
+def longlattoxy(rawdata):
+    data = []
+    R = 6371
 
-# Transforms latitude, longitude coordinates to x, y, z coordinates
-def longlattoxy():
     for entry in rawdata:
         name = entry['marker']
         position = entry['coordinates'].split(",")
@@ -52,9 +45,9 @@ def longlattoxy():
 
         data.append({"marker": name, "x": x, "y": y, "z": z})
 
+    return data
 
-# Writes a csv file named coordinates.csv with the x, y, z coordinates
-def writedatacsv():
+def writedatacsv(data):
     try:
         with io.open('coordinates.csv', mode='a', newline='') as csvw:
             write = csv.writer(csvw)
@@ -64,16 +57,24 @@ def writedatacsv():
                 x = entry['x']
                 y = entry['y']
                 z = entry['z']
-                write.writerow([name,x,y,z])
+                write.writerow([name, x, y, z])
         print('Your data csv with x,y,z coordinates is ready!')
     except csv.Error as e:
         print(e)
 
+def main():
+    parser = argparse.ArgumentParser(description='Convert KML data to CSV.')
+    parser.add_argument('filepath', type=str, help='Path to the KML file')
 
-extractdata()
-longlattoxy()
-writerawdatacsv()
-writedatacsv()
+    args = parser.parse_args()
 
-# print(rawdata)
-# print(data)
+    doc = et.parse(args.filepath)
+
+    rawdata = extractdata(doc)
+    writerawdatacsv(rawdata)
+
+    data = longlattoxy(rawdata)
+    writedatacsv(data)
+
+if __name__ == '__main__':
+    main()
