@@ -4,9 +4,9 @@ import io
 import csv
 import math
 
-def extractdata(doc):
+def extractdata(doc, namesp):
     rawdata = []
-    nmsp = '{http://www.opengis.net/kml/2.2}'
+    nmsp = '{' + namesp + '}'
 
     for pm in doc.iterfind('.//{0}Placemark'.format(nmsp)):
         marker = pm.find('{0}name'.format(nmsp)).text
@@ -65,12 +65,14 @@ def writedatacsv(data):
 def main():
     parser = argparse.ArgumentParser(description='Convert KML data to CSV.')
     parser.add_argument('filepath', type=str, help='Path to the KML file (eg. "C:\example.kml")')
+    parser.add_argument('-n', '--namespace', type=str, default='http://www.opengis.net/kml/2.2', help='URL to the XML namespace for the KML file (eg. http://www.opengis.net/kml/2.2). Default is http://www.opengis.net/kml/2.2')
 
     args = parser.parse_args()
 
     doc = et.parse(args.filepath)
+    namesp = args.namespace
 
-    rawdata = extractdata(doc)
+    rawdata = extractdata(doc, namesp)
     writerawdatacsv(rawdata)
 
     data = longlattoxy(rawdata)
