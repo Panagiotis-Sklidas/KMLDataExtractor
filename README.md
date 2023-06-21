@@ -17,8 +17,8 @@
   * [Features](#features)
 - [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
-  * [Run locally](#run-locally)
-  <!-- * [Usage](#usage) -->
+  <!-- * [Run locally](#run-locally) -->
+  * [Usage](#usage)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 
@@ -31,8 +31,8 @@ This project was created during my studies at the University for the course "Opt
  * Exports a csv file named rawcoordinates, which has all placemarkers name and their latitude, longitude and altitude coordinates
  * Exports a csv file named coordinates, which has all placemarkers name, their x, y and z coordinates
 
- #### Curenntly working on:
- * Make the script run as a terminal app
+ <!-- #### Curenntly working on:
+ * Make the script run as a terminal app -->
 
 <!-- Getting Started -->
 ## Getting Started
@@ -47,18 +47,35 @@ In order to run the application locally you should have the following installed:
 pip install defusedxml
 ```
 
-<!-- Run Locally-->
+<!-- Run Locally
 ### Run Locally
-1) In your IDE, change the filepath of the doc variable to show your kml file.
+1. In your IDE, change the filepath of the doc variable to show your kml file.
 <div>
   <img src="images/KMLdoc.png" alt="" width="auto", height="auto">
 </div>
 
-2) Then run and let the script extract and create the csv files with the latitude and longitute and x,y,z coordinates.
+2. Then run and let the script extract and create the csv files with the latitude and longitute and x,y,z coordinates. -->
 
 <!-- Usage -->
-<!-- ## Usage -->
+## Usage
+1. Download the python file (extractData.py) and add it at the folder where your kml file is (or not)
+2. In your terminal window move to where you downloaded the extractData.py
+3. Then run the following command:
+```
+python extractData.py "example.kml"   
+```
+4. The script will extract and create the csv files with the latitude and longitute and x,y,z coordinates.<br><br>
 
+<strong>Notes!</strong>
+* To add full fillpath for example if the kml file is in your Desktop the command should look like this:
+```
+python extractData.py "C:\Users\User\Desktop\example.kml"
+```
+* The csv files will be located at the same folder as extractData.py file
+* The default namespace is: http://www.opengis.net/kml/2.2, but if you want to use another then you can use the -n/--namespace flag. The command with -n flag looks like this:
+```
+python extractData.py "C:\Users\User\Desktop\example.kml" -n "http://www.opengis.net/kml/2.2"
+```
 
 <!-- License -->
 ## License
